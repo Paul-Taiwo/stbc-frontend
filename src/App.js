@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-function App() {
+import { Homepage, EventList, EventCalendar, Sermon, SermonList, Blog, BlogSingle } from "./pages";
+
+import "./main.css";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/' exact component={Homepage} />
+        <Route path='/events' component={EventList} />
+        <Route path='/event-calendar' component={EventCalendar} />
+        <Route path='/sermons' exact component={SermonList} />
+        <Route path='/sermon/:id' component={Sermon} />
+        <Route path='/blog' exact component={Blog} />
+        <Route path='/blog/:id' component={BlogSingle} />
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
