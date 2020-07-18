@@ -1,18 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Header, Footer } from "../../components";
-import pics1 from "../../assets/img/sermons/pic (1).jpg";
-// import RequestClient from "../../services/RequestClient";
+import { useParams } from "react-router-dom";
+import RequestClient from "../../services/RequestClient";
 
 const Sermon = () => {
-  // useEffect(() => {
-  //   RequestClient.get("sermons").then((res) => {
-  //     console.log("Ress", res);
-  //   });
-  // }, []);
+  const params = useParams();
+  const [sermon, setSermon] = useState({
+    fetched: false,
+    data: [],
+  });
+
+  useEffect(() => {
+    RequestClient.get(`sermons/${params.id}`).then((res) => {
+      setSermon({ fetched: true, data: { ...res.data.data } });
+    });
+  }, [params.id]);
 
   return (
     <>
-      <div id='preloader'></div>
+      {!sermon.fetched && <div id='preloader'></div>}
       <div id='wrapper'>
         <Header />
 
@@ -20,7 +26,7 @@ const Sermon = () => {
           <div className='container'>
             <div className='row'>
               <div className='col-md-12'>
-                <h1>Events</h1>
+                s<h1>Events</h1>
               </div>
             </div>
           </div>
@@ -29,45 +35,43 @@ const Sermon = () => {
         <div class='clearfix'></div>
 
         <div id='content'>
-          <div className='container event-single'>
-            <div className='row'>
-              <h1 className='col-md-12'>Transforming Live, Restoring Hope</h1>
-              <div className='col-md-8'>
-                <img src={pics1} className='img-event img-full' alt='' />
+          {sermon.fetched && (
+            <div className='container event-single'>
+              <div className='row'>
+                <h1 className='col-md-12'>{sermon.data.sermon_title}</h1>
+                <div className='col-md-8'>
+                  <img
+                    src={sermon.data.featured_img}
+                    className='img-event img-full'
+                    alt=''
+                  />
 
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                  occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </p>
+                  <p>{sermon.data.sermon_content}</p>
 
-                <p>
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
-                  illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-                  explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                  odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                  voluptatem sequi nesciunt.
-                </p>
-              </div>
+                  <p>
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                    accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+                    ab illo inventore veritatis et quasi architecto beatae vitae dicta
+                    sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+                    aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+                    qui ratione voluptatem sequi nesciunt.
+                  </p>
+                </div>
 
-              <div className='col-md-4'>
-                <a href='#' className='btn-icon'>
-                  <i className='fa fa-video-camera'></i>Video Streaming
-                </a>
-                <a href='#' className='btn-icon'>
-                  <i className='fa fa-volume-up'></i>Audio Streaming
-                </a>
-                <a href='#' className='btn-icon'>
-                  <i className='fa fa-file-pdf-o'></i>Download PDF
-                </a>
+                <div className='col-md-4'>
+                  <a href='#' className='btn-icon'>
+                    <i className='fa fa-video-camera'></i>Video Streaming
+                  </a>
+                  <a href='#' className='btn-icon'>
+                    <i className='fa fa-volume-up'></i>Audio Streaming
+                  </a>
+                  <a href='#' className='btn-icon'>
+                    <i className='fa fa-file-pdf-o'></i>Download PDF
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
         <Footer />
       </div>
