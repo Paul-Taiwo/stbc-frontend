@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import RequestClient from "../../services/RequestClient";
 import { Header, Footer } from "../../components";
 
-import blog1 from "../../assets/img/blog/pic-blog-1.jpg";
-import blog2 from "../../assets/img/blog/pic-blog-2.jpg";
 import blog3 from "../../assets/img/blog/pic-blog-3.jpg";
 import blog4 from "../../assets/img/blog/pic-blog-4.jpg";
 import BlogPostListCard from "../../components/blogPostListCard";
