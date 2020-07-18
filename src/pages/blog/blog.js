@@ -17,7 +17,6 @@ const Blog = () => {
 
   useEffect(() => {
     RequestClient.get("blogs").then((res) => {
-      console.log(res);
       setBlogPost({ fetched: true, data: [...res.data.data] });
     });
   }, []);
