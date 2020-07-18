@@ -1,17 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import moment from "moment";
 
-const SermonListCard = ({ sermonTitle, sermonAuthor, createdAt }) => {
+const SermonListCard = ({ id, sermonTitle, sermonAuthor, createdAt }) => {
   return (
     <div className='custom-col-3'>
       <div className='left-col'>
         <img src='img/sermons/pic%20(9).jpg' alt='' className='img-responsive' />
       </div>
       <div className='mid-col'>
-        <a href='#'>
+        <Link to={`sermon/${id}`}>
           <h3>{sermonTitle}</h3>
-        </a>
+        </Link>
         <div className='details'>
           <span>
             By <a href='#'>{sermonAuthor}</a>, {moment(createdAt).format("MMMM Do, YYYY")}
@@ -35,8 +36,10 @@ const SermonListCard = ({ sermonTitle, sermonAuthor, createdAt }) => {
 };
 
 SermonListCard.propTypes = {
+  id: PropTypes.string.isRequired,
   sermonTitle: PropTypes.string.isRequired,
   sermonAuthor: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
 };
 
 export default SermonListCard;
