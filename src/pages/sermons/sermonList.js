@@ -40,8 +40,9 @@ const SermonList = () => {
               <div className='col-md-10 col-md-offset-1'>
                 {sermons.fetched &&
                   sermons.data.length > 0 &&
-                  sermons.data.map(({ sermon_title, sermon_author, createdAt }) => (
+                  sermons.data.map(({ _id, sermon_title, sermon_author, createdAt }) => (
                     <SermonListCard
+                      id={_id}
                       sermonTitle={sermon_title}
                       sermonAuthor={sermon_author}
                       createdAt={createdAt}
